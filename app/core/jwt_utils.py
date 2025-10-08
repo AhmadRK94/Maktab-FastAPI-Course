@@ -53,7 +53,7 @@ def decode_verify_token(token: str, token_type: str = "access") -> dict:
         if datetime.now().timestamp() > payload.get("exp"):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Authentication failed, token expired.",
+                detail="Authentication failed, Token expired.",
             )
         user_id = payload.get("user_id", None)
         if not user_id:
