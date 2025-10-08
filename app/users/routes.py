@@ -1,36 +1,22 @@
 from fastapi import APIRouter, status, HTTPException, Depends
 from fastapi.responses import JSONResponse
 
-from app.users.schemas import UserLoginSchema, UserRegisterSchema, UserResponseSchema
+from app.users.schemas import UserRegisterSchema, UserResponseSchema
 from app.core.db import Session, get_db
 from app.users.models import UserModel
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.post("/login", status_code=status.HTTP_200_OK)
-def login_user(request: UserLoginSchema, db: Session = Depends(get_db)):
-    user_object = db.query(UserModel).filter_by(email=request.email.lower()).first()
-    if not user_object:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid Username or Password.",
-        )
-    if not user_object.verify_password(request.password):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid Username or Password.",
-        )
-    return JSONResponse(
-        content={
-            "detail": "Logged in successfully.",
-        }
-    )
-
-
-@router.post(
-    "/register", status_code=status.HTTP_201_CREATED, response_model=UserResponseSchema
+@router.get(
+    "/", status_code=status.HTTP_200_OK, response_model=list[UserResponseSchema]
 )
+def get_all_users(db: Session = Depends(get_db)):
+    users = db.query(UserModel).all()
+    return users
+
+
+@router.post("/register", status_code=status.HTTP_201_CREATED)
 def register_user(request: UserRegisterSchema, db: Session = Depends(get_db)):
     if db.query(UserModel).filter_by(email=request.email.lower()).first():
         raise HTTPException(
@@ -44,6 +30,5 @@ def register_user(request: UserRegisterSchema, db: Session = Depends(get_db)):
     return JSONResponse(
         content={
             "detail": "User registered successfully.",
-            # "user": UserResponseSchema.model_validate(user_object).model_dump(),
         }
     )

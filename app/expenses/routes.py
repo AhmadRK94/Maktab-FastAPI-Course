@@ -1,20 +1,22 @@
-from fastapi import APIRouter, status, HTTPException, Path, Depends, Header
+from fastapi import APIRouter, status, HTTPException, Path, Depends
 from app.core.db import Session, get_db
 from app.expenses.schemas import ExpenseCreateSchema, ExpenseResponseSchema
 from app.expenses.models import ExpenseModel
 from app.users.models import UserModel
+from app.auth.dependency import get_current_user
 
 router = APIRouter(prefix="/expenses", tags=["expenses"])
 
 
 @router.get(
-    "/expenses",
+    "/",
     status_code=status.HTTP_200_OK,
     response_model=list[ExpenseResponseSchema],
 )
 def get_all_expenses(
-    user_id: int = Header(..., alias="x-user-id"), db: Session = Depends(get_db)
+    current_user: UserModel = Depends(get_current_user), db: Session = Depends(get_db)
 ):
+    user_id = current_user.id
     user = db.query(UserModel).filter_by(id=user_id).first()
     if not user:
         raise HTTPException(
@@ -26,15 +28,16 @@ def get_all_expenses(
 
 
 @router.get(
-    "/expenses/{id}",
+    "/{id}",
     status_code=status.HTTP_200_OK,
     response_model=ExpenseResponseSchema,
 )
 def get_expense_by_id(
     id: int = Path(),
-    user_id: int = Header(..., alias="x-user-id"),
+    current_user: UserModel = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    user_id = current_user.id
     user = db.query(UserModel).filter_by(id=user_id).first()
     if not user:
         raise HTTPException(
@@ -50,12 +53,13 @@ def get_expense_by_id(
     return expense
 
 
-@router.post("/expenses", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED)
 def add_expense(
     create_expense: ExpenseCreateSchema,
-    user_id: int = Header(..., alias="x-user-id"),
+    current_user: UserModel = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    user_id = current_user.id
     user = db.query(UserModel).filter_by(id=user_id).first()
     if not user:
         raise HTTPException(
@@ -70,13 +74,14 @@ def add_expense(
     db.refresh(new_expense)
 
 
-@router.put("/expenses/{id}", status_code=status.HTTP_200_OK)
+@router.put("/{id}", status_code=status.HTTP_200_OK)
 def update_expense(
     update_expense: ExpenseCreateSchema,
     id: int = Path(),
-    user_id: int = Header(..., alias="x-user-id"),
+    current_user: UserModel = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    user_id = current_user.id
     user = db.query(UserModel).filter_by(id=user_id).first()
     if not user:
         raise HTTPException(
@@ -96,12 +101,13 @@ def update_expense(
     db.refresh(expense_object)
 
 
-@router.delete("/expenses/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_expense(
     id: int = Path(),
-    user_id: int = Header(..., alias="x-user-id"),
+    current_user: UserModel = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    user_id = current_user.id
     user = db.query(UserModel).filter_by(id=user_id).first()
     if not user:
         raise HTTPException(
