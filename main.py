@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Response
+from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 
 from app.expenses.routes import router as expenses_router
@@ -17,3 +18,9 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(expenses_router)
 app.include_router(users_router)
 app.include_router(auth_router)
+
+
+@app.exception_handler(HTTPException)
+def custom_http_exception(request: Response, exc: HTTPException):
+    content = {"error": True, "status_code": exc.status_code, "detail": str(exc.detail)}
+    return JSONResponse(status_code=exc.status_code, content=content)

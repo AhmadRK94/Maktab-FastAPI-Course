@@ -130,7 +130,7 @@ def delete_expense(
     if not expense_object:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=_("item with id : {id} doesn't exist.").format(id=id),
+            detail=_("item with id: {id} doesn't exist.").format(id=id),
         )
     db.delete(expense_object)
     db.commit()

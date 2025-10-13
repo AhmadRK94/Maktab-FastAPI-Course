@@ -28,7 +28,6 @@ def register_user(request: UserRegisterSchema, db: Session = Depends(get_db)):
     db.add(user_object)
     db.commit()
     return JSONResponse(
-        content={
-            "detail": "User registered successfully.",
-        }
+        status_code=status.HTTP_201_CREATED,
+        content={"detail": "User registered successfully."},
     )

@@ -13,11 +13,12 @@ from app.core.jwt_utils import (
     decode_verify_token,
 )
 from app.dependencies.i18n import get_translator
+from app.auth.dependency import get_current_user
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
 
-@router.post("/login", status_code=status.HTTP_200_OK)
+@router.post("/login")
 def login_user(
     request: UserLoginSchema,
     db: Session = Depends(get_db),
@@ -35,7 +36,9 @@ def login_user(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=_("Invalid Username or Password."),
         )
-    response = JSONResponse(content={"detail": _("Login successful.")})
+    response = JSONResponse(
+        content={"detail": _("Login successful.")}, status_code=status.HTTP_200_OK
+    )
     access_token = generate_access_token(user_object.id)
     refresh_token = generate_refresh_token(user_object.id)
 
@@ -45,7 +48,11 @@ def login_user(
 
 
 @router.post("/logout", status_code=status.HTTP_200_OK)
-def logout_user(_=Depends(get_translator), lang: str = Query(default="en")):
+def logout_user(
+    _=Depends(get_translator),
+    current_user: UserModel = Depends(get_current_user),
+    lang: str = Query(default="en"),
+):
     response = JSONResponse(content={"detail": _("Logout successful.")})
     clear_cookies(response)
     return response
