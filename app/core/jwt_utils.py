@@ -1,12 +1,12 @@
 import jwt
 from datetime import datetime, timedelta
-from app.core.config import config
+from app.core.config import settings
 from jwt.exceptions import DecodeError, InvalidSignatureError
 from fastapi import HTTPException, status
 
 
 def generate_access_token(
-    user_id: int, expires_in: int = config.ACCESS_TOKEN_EXPIRE_MINUTES
+    user_id: int, expires_in: int = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 ) -> str:
     now = datetime.now()
     iat = int(now.timestamp())
@@ -18,12 +18,12 @@ def generate_access_token(
         "exp": exp,
     }
     return jwt.encode(
-        payload=payload, key=config.JWT_SECRET_KEY, algorithm=config.JWT_ALGORITHM
+        payload=payload, key=settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM
     )
 
 
 def generate_refresh_token(
-    user_id: int, expires_in: int = config.REFRESH_TOKEN_EXPIRE_DAYS
+    user_id: int, expires_in: int = settings.REFRESH_TOKEN_EXPIRE_DAYS
 ) -> str:
     now = datetime.now()
     iat = int(now.timestamp())
@@ -35,7 +35,7 @@ def generate_refresh_token(
         "exp": exp,
     }
     return jwt.encode(
-        payload=payload, key=config.JWT_SECRET_KEY, algorithm=config.JWT_ALGORITHM
+        payload=payload, key=settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM
     )
 
 
@@ -43,7 +43,7 @@ def generate_refresh_token(
 def decode_verify_token(token: str, token_type: str = "access") -> dict:
     try:
         payload = jwt.decode(
-            token, config.JWT_SECRET_KEY, algorithms=[config.JWT_ALGORITHM]
+            token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM]
         )
         if payload.get("type") != token_type:
             raise HTTPException(

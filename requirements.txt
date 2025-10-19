@@ -6,3 +6,4 @@ pyjwt
 babel
 ruff
 pytest
+psycopg2-binary

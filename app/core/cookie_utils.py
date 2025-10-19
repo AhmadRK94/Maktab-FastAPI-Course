@@ -1,11 +1,11 @@
 from fastapi import Response
-from app.core.config import config
+from app.core.config import settings
 from datetime import datetime, timedelta, timezone
 
 
 def set_access_cookie(response: Response, token: str):
     expires = datetime.now(timezone.utc) + timedelta(
-        minutes=config.ACCESS_TOKEN_EXPIRE_MINUTES
+        minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
     response.set_cookie(
         key="access_token",
@@ -19,7 +19,7 @@ def set_access_cookie(response: Response, token: str):
 
 def set_refresh_cookie(response: Response, token: str):
     expires = datetime.now(timezone.utc) + timedelta(
-        days=config.REFRESH_TOKEN_EXPIRE_DAYS
+        days=settings.REFRESH_TOKEN_EXPIRE_DAYS
     )
     response.set_cookie(
         key="refresh_token",
