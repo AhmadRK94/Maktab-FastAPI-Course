@@ -3,3 +3,8 @@ alembic
 passlib==1.7.4
 bcrypt==4.3.0
 pyjwt
+babel
+ruff
+pytest
+psycopg2-binary
+locust

@@ -1,0 +1,54 @@
+# English translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-10-08 19:53+0330\n"
+"PO-Revision-Date: 2025-10-08 19:54+0330\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+
+
+msgid "item with id: {id} doesn't exist."
+msgstr "item with id: {id} doesn't exist."
+
+msgid "User with id: {user_id} doesn't exist."
+msgstr "User with id: {user_id} doesn't exist."
+
+msgid "Invalid Username or Password."
+msgstr "Invalid Username or Password."
+
+msgid "User registered successfully."
+msgstr "User registered successfully."
+
+msgid "Login successful."
+msgstr "Login successful."
+
+msgid "Logout successful"
+msgstr "Logout successful"
+
+msgid "Access token refreshed successfully."
+msgstr "Access token refreshed successfully."
+
+msgid "Authentication failed, refresh token not found."
+msgstr "Authentication failed, refresh token not found."
+
+msgid "Authentication failed, Invalid token type."
+msgstr "Authentication failed, Invalid token type."
+
+msgid "Authentication failed, Token expired."
+msgstr "Authentication failed, Token expired."
+
+msgid "Authentication failed, Decode failed."
+msgstr "Authentication failed, Decode failed."

@@ -1,0 +1,55 @@
+# Persian translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-10-08 19:53+0330\n"
+"PO-Revision-Date: 2025-10-08 19:54+0330\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fa\n"
+"Language-Team: fa <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+msgid "User registered successfully."
+msgstr "یوزر با موفقیت ثبت نام کرد."
+
+
+msgid "item with id: {id} doesn't exist."
+msgstr "آیتم با آیدی: {id} وجود ندارد."
+
+
+msgid "User with id: {user_id} doesn't exist."
+msgstr "یوزر با آیدی: {user_id} وجود ندارد."
+
+msgid "Invalid Username or Password."
+msgstr "نام کاربری یا رمز عبور اشتباه است."
+
+msgid "Login successful."
+msgstr "ورود موفق"
+
+msgid "Logout successful."
+msgstr "خروج موفق"
+
+
+msgid "Access token refreshed successfully."
+msgstr "توکن دسترسی با موفقیت به روز رسانی شد."
+
+msgid "Authentication failed, refresh token not found."
+msgstr "احراز هویت ناموفق، توکن به روز رسانی پیدا نشد."
+
+msgid "Authentication failed, Invalid token type."
+msgstr "احراز هویت ناموفق، نوع توکن اشتباه است."
+
+msgid "Authentication failed, Token expired."
+msgstr "احراز هویت ناموفق، توکن منقضی شد."
+
+msgid "Authentication failed, Decode failed."
+msgstr "احراز هویت ناموفق بود، رمزگشایی ناموفق بود."

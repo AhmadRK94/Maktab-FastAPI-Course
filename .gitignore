@@ -1,0 +1,58 @@
+# Byte-code files
+*.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environment
+.venv/
+env/
+venv/
+!venv/bin/activate # Keep activate script for some environments (optional)
+!venv/Scripts/activate # Windows activate script (optional)
+
+# uv-specific
+.uv/
+
+# Jupyter Notebook files
+.ipynb_checkpoints
+
+# Editor/IDE specific files
+.idea/                  # JetBrains IDEs (PyCharm, IntelliJ, etc.)
+.vscode/                # VS Code
+*.sublime-project       # Sublime Text
+*.sublime-workspace
+.DS_Store               # macOS specific
+.history/               # VS Code Local History
+*.swp                   # Vim swap files
+*.swo
+
+# Docker specific
+.dockerignore           # If you have one, though it's usually source-controlled
+Dockerfile.bak          # Backup Dockerfiles
+docker-compose.yml.bak  # Backup Compose files
+docker-compose.override.yml # Local overrides if not meant for repo
+.env                    # Environment variables (see notes below)
+.env.*.local            # Local environment variables
+
+# Database (local development)
+*.sqlite3
+*.db
+data/                   # For PostgreSQL bind mount (if you use ./data for pg data)
+.coverage               # Coverage reporting
+
+# Tests
+.pytest_cache/
+htmlcov/                # Coverage HTML report
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# OS generated files
+thumbs.db
+
+data/

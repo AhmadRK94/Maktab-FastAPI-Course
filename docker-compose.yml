@@ -1,0 +1,49 @@
+
+services:
+  app:
+    build: .
+    container_name: fastapi_app
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      SQLALCHEMY_DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
+      REDIS_DATABASE_URL: redis://redis:6379/0
+      JWT_ALGORITHM : HS256
+      JWT_SECRET_KEY : 9e4bc8eb7e7f7688623831aaa8fadb4eafcbf435ae2ac9c0b31f8aaee61bf0c1
+      ACCESS_TOKEN_EXPIRE_MINUTES : 15
+      REFRESH_TOKEN_EXPIRE_DAYS : 1
+    volumes:
+      - ./data:/backend_data
+
+  db:
+    image: postgres:16.10-alpine3.22
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  redis:
+    image: redis:8.2.2-alpine3.22
+    container_name: redis_server
+    restart: always
+    ports:
+      - "6379:6379"
+
+  locust:
+    image: locustio/locust
+    container_name: locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./app/locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py
