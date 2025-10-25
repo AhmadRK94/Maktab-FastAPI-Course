@@ -38,3 +38,12 @@ services:
     restart: always
     ports:
       - "6379:6379"
+
+  locust:
+    image: locustio/locust
+    container_name: locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./app/locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py

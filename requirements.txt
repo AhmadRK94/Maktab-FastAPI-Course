@@ -7,3 +7,4 @@ babel
 ruff
 pytest
 psycopg2-binary
+locust
