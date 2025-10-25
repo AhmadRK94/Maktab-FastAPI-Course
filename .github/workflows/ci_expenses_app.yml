@@ -2,7 +2,7 @@ name: FastAPI Expenses
 
 on:
   push:
-    branches: [ "practice_CI/CD" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
