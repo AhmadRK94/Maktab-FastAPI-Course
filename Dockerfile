@@ -1,23 +1,19 @@
-FROM python:3.12-alpine3.22
+FROM python:3.12-slim
 
 WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN apk update && apk add --no-cache \
-    build-base \
-    postgresql-dev \
- && rm -rf /var/cache/apk/*
-
-RUN pip install uv
-
 COPY ./requirements.txt .
 
-RUN uv pip install --no-cache-dir -r requirements.txt --system
+RUN pip install --no-cache-dir -r requirements.txt --system
+
+COPY ./Entrypoint.sh .
+RUN chmod +x /app/Entrypoint.sh
 
 COPY . .
 
 EXPOSE 8000
 
-CMD alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000
+ENTRYPOINT ["/app/Entrypoint.sh"]

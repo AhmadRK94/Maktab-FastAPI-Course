@@ -7,6 +7,9 @@ class Config(BaseSettings):
     REDIS_DATABASE_URL: str
     JWT_ALGORITHM: str
     JWT_SECRET_KEY: str
+    SENTRY_DSN: str = (
+        "https://2a6b9a708b53b15df09d9d271eda46d2@sentry.hamravesh.com/9230"
+    )
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     REFRESH_TOKEN_EXPIRE_DAYS: int
     model_config = SettingsConfigDict(
