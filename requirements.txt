@@ -8,3 +8,4 @@ ruff
 pytest
 psycopg2-binary
 locust
+sentry-sdk[fastapi]
